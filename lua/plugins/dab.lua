@@ -2,8 +2,16 @@ return {
   {
     "mfussenegger/nvim-dap",
 
-    config = function()
+    opts = function()
       local dap = require("dap")
+
+      LazyVim.config.icons.dap = {
+        Breakpoint = { "●", "DiagnosticError" },
+        BreakpointCondition = { "◆", "DiagnosticWarn" },
+        BreakpointRejected = { "○", "DiagnosticError" },
+        LogPoint = { "◆", "DiagnosticInfo" },
+        Stopped = { "▶", "DiagnosticWarn", "Visual" },
+      }
 
       dap.adapters.codelldb = {
         type = "executable",
@@ -29,5 +37,15 @@ return {
         desc = "Debug: Start/Continue",
       })
     end,
+  },
+  {
+    "jay-babu/mason-nvim-dap.nvim",
+    optional = true,
+    opts = {
+      handlers = {
+        -- CodeLLDB uses the adapter and launch settings defined above.
+        codelldb = function() end,
+      },
+    },
   },
 }

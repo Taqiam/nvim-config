@@ -1,83 +1,74 @@
 # Nvim Config
 
-A Neovim configuration for **C++ development on macOS**.
+C++ and C#/.NET on Apple Silicon macOS.
+
+For Unity scripts, open the project in Neovim after VS Code’s Unity integration generates the C# project files.
 
 ## 1. Install Tools and Packages
 
-Install the required tools and packages using Homebrew:
+### Common
 
 ```bash
 brew install neovim git ripgrep fd lazygit
+```
+
+### C++
+
+```bash
 brew install llvm cmake ninja clang-format
 ```
 
-### Verify Installation
-
-Check that the required tools are installed correctly:
+### C#
 
 ```bash
-clang++ --version
-clangd --version
-clang-format --version
+brew install --cask dotnet-sdk
+```
+
+Or download the Arm64 .NET SDK (10 or newer) from Microsoft.
+
+### Verify Installation
+
+```bash
+# Common
+command -v nvim git rg fd lazygit
+
+# C++
+"$(brew --prefix llvm)/bin/clang++" --version
 cmake --version
 ninja --version
-nvim --version
+clang-format --version
+
+# C#
+dotnet --list-sdks
 ```
 
 ## 2. Configure LLVM
 
-Add the LLVM `bin` directory to your `PATH`.
-
-Add the following line to `~/.zshrc` (or the configuration file for the shell you use):
+Add to `~/.zshrc`.
 
 ```bash
 export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
 ```
 
-Then reload your shell configuration:
-
 ```bash
 source ~/.zshrc
 ```
 
-Verify that the LLVM tools are being used:
-
-```bash
-which clang++
-which clangd
-which clang-format
-```
-
-## 3. Install Nerd Font
-
-Install **JetBrainsMono Nerd Font**:
+## 3. Nerd Font
 
 ```bash
 brew install --cask font-jetbrains-mono-nerd-font
 ```
 
-After installation, configure your terminal to use **JetBrainsMono Nerd Font**.
+Select JetBrainsMono Nerd Font in your terminal settings.
 
-This is required for icons and symbols used by Neovim plugins to display correctly.
+## 4. Install the Nvim Config
 
-## 4. Install the Nvim Configuration
-
-Back up your existing Neovim configuration:
+Back up any existing `~/.config/nvim` first.
 
 ```bash
-mv ~/.config/nvim ~/.config/nvim.bak
-```
-
-Clone this configuration:
-
-```bash
-git clone <repository-url> ~/.config/nvim
-```
-
-Start Neovim:
-
-```bash
+git clone https://github.com/Taqiam/nvim-config.git ~/.config/nvim
 nvim
 ```
 
-Wait for Neovim to install the required plugins.
+Wait for Neovim to install the packages.
